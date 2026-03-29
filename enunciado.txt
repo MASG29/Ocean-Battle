@@ -1,0 +1,112 @@
+🌊 Batalha Naval
+
+Foste contratado para criar uma simulação de batalha naval.
+O combate acontece numa grelha visual usando a biblioteca SimpleGraphics.
+
+---
+
+Grid
+
+É o campo de batalha.
+
+Tem um número de colunas e linhas.
+
+Cada célula tem um tamanho fixo.
+
+Sabe converter colunas/linhas em coordenadas de pixel.
+
+---
+
+Position
+
+Representa a posição de algo no grid.
+
+Toda a posição tem uma coluna, uma linha, e um retângulo visual.
+
+Qualquer posição sabe mover-se nas 4 direções.
+
+Uma posição nunca pode sair fora dos limites do grid.
+
+---
+
+Ship
+
+É a base de todos os navios.
+
+Todo o navio tem uma posição, uma vida, e uma cor.
+
+Qualquer navio sabe mover-se aleatoriamente pelo grid.
+
+Um navio com vida igual a zero está afundado e não se move.
+
+Um navio afundado muda de cor para cinzento.
+
+Um navio pode ser de vários tipos diferentes.
+
+---
+
+Existem navios que sabem atacar e navios que não sabem.
+
+Existem navios que sabem reparar outros navios e navios que não sabem.
+
+Pensa em como representar es tas capacidades.
+
+---
+
+O combate acontece quando dois navios de equipas diferentes
+estão na mesma posição.
+
+Cada navio que sabe atacar tem um valor de dano.
+
+Quando atacam, retiram vida ao inimigo.
+
+---
+
+Existem duas equipas: aliados e inimigos.
+
+Cada equipa tem os seus próprios tipos de navios.
+
+Pensa em como saber a que equipa pertence cada navio.
+
+---
+
+ShipFactory
+
+Sabe criar navios.
+
+Deve conseguir criar navios aliados e navios inimigos.
+
+A escolha do tipo de navio é aleatória.
+
+---
+
+Battle (programa principal)
+
+A batalha tem um grid, navios aliados, e navios inimigos.
+
+A batalha cria pelo menos 5 navios por equipa.
+
+Pelo menos um navio aliado deve saber reparar.
+
+Em cada turno: todos os navios movem-se, verifica-se combate,
+verifica-se reparação de aliados.
+
+A batalha acaba quando todos os navios de uma equipa
+estão afundados.
+
+No final, mostrar quem ganhou.
+
+---
+
+Dicas:
+
+Começa pelo Grid e pela Position (já sabes fazer).
+Depois o Ship base.
+Depois pensa nas capacidades (atacar, reparar).
+Depois os tipos concretos de navios.
+Depois a factory.
+Por fim a lógica da batalha.
+
+---
+
+Boa sorte! ⚓💥
