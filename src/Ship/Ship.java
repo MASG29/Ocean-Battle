@@ -57,7 +57,7 @@ public abstract class Ship implements Movable {
     }
 
     public void repairing(int repairAmount){
-        this.life = Math.max(shipType.health, this.life + repairAmount);
+        this.life = Math.min(shipType.health, this.life + repairAmount);
 
     }
 

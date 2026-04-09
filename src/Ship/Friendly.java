@@ -22,7 +22,7 @@ public class Friendly extends Ship implements  Atacks, Repairable {
     public void repair(Ship ally) {
 
         if(this.getShipType().canRepair){
-            ally.takeDamage(getShipType().damage);
+            ally.repairing(getShipType().damage);
         }
     }
 }

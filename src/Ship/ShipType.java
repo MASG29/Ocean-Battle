@@ -28,6 +28,10 @@ public enum ShipType {
 
     }
 
+    public boolean repairs(){
+        return canRepair;
+    }
+
 
 
 }
