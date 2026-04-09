@@ -3,7 +3,7 @@ package Ship;
 public enum ShipType {
     TANK("Tank", 200, 10, false),
     PIRATE("Pirate", 100, 15, false),
-    MECHANIC("Mechanic", 150, 0, true);
+    MECHANIC("Mechanic", 150, 25, true);
 
     protected String name;
     protected int health;
@@ -20,12 +20,6 @@ public enum ShipType {
     protected  static ShipType defineShipType(){
         double roller = Math.random();
 
-        /*switch (roller){
-            case <= 0 && < 0.4:
-
-        }
-
-         */
         if (roller <= 0.4){
             return ShipType.TANK;
         } else if (roller > 0.4 && roller <= 0.8) {

@@ -5,7 +5,7 @@ import Grid.Position;
 import Static.Extra;
 import com.codeforall.simplegraphics.graphics.Color;
 
-public abstract class Ship implements Atacks, Repairable, Movable {
+public abstract class Ship implements Movable {
 
     private Grid grid;
     private int life;
@@ -22,12 +22,13 @@ public abstract class Ship implements Atacks, Repairable, Movable {
         this.color = color;
         this.shipType = ShipType.defineShipType();
         this.position = new Position(grid, color);
+        this.life = shipType.health;
 
 
     }
     public void move(){
 
-        if (this.shipType.health == 0){
+        if (this.life == 0){
             return;
         }
 
@@ -49,6 +50,19 @@ public abstract class Ship implements Atacks, Repairable, Movable {
                 break;
         }
     }
+
+    public void takeDamage(int damage) {
+        this.life = Math.max(0, this.life - damage);
+        if (isSunk()) this.position.setColor(Color.GRAY); // mudar para cinzento
+    }
+
+    public void repairing(int repairAmount){
+        this.life = Math.max(shipType.health, this.life + repairAmount);
+
+    }
+
+    public int getLife() { return life; }
+    public boolean isSunk() { return life <= 0; }
 
     public ShipType getShipType(){
         return this.shipType;

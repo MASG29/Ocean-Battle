@@ -47,17 +47,17 @@ public class Position {
             return;
         }
         for (int i = 0; i < keepDirection; i++) {
-            rectangle.translate(-1 * grid.getCellSize(), 0);
+            rectangle.translate(0, -1 * grid.getCellSize());
             row -= 1;
         }
     }
     public void moveDown(int keepDirection){
-        if (col + keepDirection >= grid.getCols()){
+        if (row + keepDirection >= grid.getCols()){
             return;
         }
         for (int i = 0; i < keepDirection; i++) {
-            rectangle.translate(grid.getCellSize(), 0);
-            col += 1;
+            rectangle.translate(0, grid.getCellSize());
+            row += 1;
         }
     }
 
@@ -75,5 +75,9 @@ public class Position {
 
     public void setRow(int row) {
         this.row = row;
+    }
+
+    public void setColor(Color color){
+        rectangle.setColor(color);
     }
 }

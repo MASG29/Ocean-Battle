@@ -2,5 +2,5 @@ package Ship;
 
 public interface Atacks {
 
-    void atack();
+    void atack(Ship target);
 }

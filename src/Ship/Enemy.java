@@ -4,7 +4,7 @@ import Grid.Grid;
 import Grid.Position;
 import com.codeforall.simplegraphics.graphics.Color;
 
-public class Enemy extends Ship  {
+public class Enemy extends Ship implements  Atacks, Repairable {
 
 
 
@@ -14,12 +14,15 @@ public class Enemy extends Ship  {
     }
 
     @Override
-    public void atack() {
+    public void atack(Ship target) {
 
+        if(!this.getShipType().canRepair){
+            target.takeDamage(getShipType().damage);
+        }
     }
 
     @Override
-    public void repairable() {
+    public void repair(Ship ally) {
 
     }
 }

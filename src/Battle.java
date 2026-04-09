@@ -13,6 +13,10 @@ public class Battle  {
 
     private int delay;
 
+    private Ship[] enemys;
+
+    private Ship[] friendlys;
+
     public Battle(int cols, int rows, int delay){
         this.grid = new Grid(cols, rows);
         this.delay = delay;
@@ -25,16 +29,18 @@ public class Battle  {
         this.ships = new Ship[totalPlayers];
         for (int i = 0; i < totalPlayers / 2; i++) {
             ships[i] = ShipFactory.getNewFriendlyShip(grid);
+            enemys[i] = ships[i];
         }
 
         for (int j = totalPlayers / 2; j < totalPlayers; j++){
             ships[j] = ShipFactory.getNewEnemyShip(grid);
+            friendlys[j - totalPlayers / 2] = ships[j];
         }
 
     }
 
-    public void start() throws InterruptedException {
 
+    public void start() throws InterruptedException {
 
         while (true){
 
@@ -46,17 +52,10 @@ public class Battle  {
 
     public void moveAllShips(){
 
-
         for (Ship ship : ships){
             ship.move();
         }
     }
-
-
-
-
-
-
 
 
 }
