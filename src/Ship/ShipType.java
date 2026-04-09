@@ -17,16 +17,10 @@ public enum ShipType {
         this.canRepair = canRepair;
     }
 
-    protected  static ShipType defineShipType(){
+    protected static ShipType defineShipType() {
         double roller = Math.random();
 
-        /*switch (roller){
-            case <= 0 && < 0.4:
-
-        }
-
-         */
-        if (roller <= 0.4){
+        if (roller <= 0.4) {
             return ShipType.TANK;
         } else if (roller > 0.4 && roller <= 0.8) {
             return ShipType.PIRATE;

@@ -81,10 +81,7 @@ public abstract class Ship implements Atacks, Repairable, Movable {
     }
 
     public void takeDamage(int amount) {
-        this.life -= amount;
-        if (this.life < 0) {
-            this.life = 0;
-        }
+        this.life = Math.max(0, this.life - amount);
         if (isSunk()) {
             this.position.setColor(Color.GRAY);
         }
@@ -94,10 +91,7 @@ public abstract class Ship implements Atacks, Repairable, Movable {
         if (isSunk()) {
             return;
         }
-        this.life += amount;
-        if (this.life > maxLife) {
-            this.life = maxLife;
-        }
+        this.life = Math.min(maxLife, this.life + amount);
     }
 
     public boolean isSunk() {
