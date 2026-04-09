@@ -10,55 +10,62 @@ public class Position {
     private Rectangle rectangle;
     private Grid grid;
 
-
     public Position(Grid grid, Color color) {
-
         this.grid = grid;
-        int randomCol = (int) (Math.random() * grid.getCols());
-        int randomRow = (int) (Math.random() * grid.getRows());
-        this.col = randomCol;
-        this.row = randomRow;
-
-        this.rectangle =  new Rectangle(grid.columnToX(col), grid.rowToY(row), grid.getCellSize(), grid.getCellSize());
+        this.col = (int) (Math.random() * grid.getCols());
+        this.row = (int) (Math.random() * grid.getRows());
+        this.rectangle = new Rectangle(grid.columnToX(col), grid.rowToY(row), grid.getCellSize(), grid.getCellSize());
         rectangle.setColor(color);
         rectangle.fill();
     }
 
-    public void moveRight(int keepDirection){
-        if (col + keepDirection >= grid.getCols()){
-            return;
-        }
-        for (int i = 0; i < keepDirection; i++) {
-            rectangle.translate(grid.getCellSize(),0);
-            col += 1;
-        }
-    }
-    public void moveLeft(int keepDirection){
-        if (col - keepDirection < 0){
-            return;
-        }
-        for (int i = 0; i < keepDirection; i++) {
-            rectangle.translate(-1 * grid.getCellSize(), 0);
-            col -= 1;
-        }
-    }
-    public void moveUp(int keepDirection){
-        if (row - keepDirection < 0){
-            return;
-        }
-        for (int i = 0; i < keepDirection; i++) {
-            rectangle.translate(-1 * grid.getCellSize(), 0);
-            row -= 1;
-        }
-    }
-    public void moveDown(int keepDirection){
-        if (col + keepDirection >= grid.getCols()){
+    public void moveRight(int keepDirection) {
+        if (col + keepDirection >= grid.getCols()) {
             return;
         }
         for (int i = 0; i < keepDirection; i++) {
             rectangle.translate(grid.getCellSize(), 0);
-            col += 1;
+            col++;
         }
+    }
+
+    public void moveLeft(int keepDirection) {
+        if (col - keepDirection < 0) {
+            return;
+        }
+        for (int i = 0; i < keepDirection; i++) {
+            rectangle.translate(-grid.getCellSize(), 0);
+            col--;
+        }
+    }
+
+    public void moveUp(int keepDirection) {
+        if (row - keepDirection < 0) {
+            return;
+        }
+        for (int i = 0; i < keepDirection; i++) {
+            rectangle.translate(0, -grid.getCellSize());
+            row--;
+        }
+    }
+
+    public void moveDown(int keepDirection) {
+        if (row + keepDirection >= grid.getRows()) {
+            return;
+        }
+        for (int i = 0; i < keepDirection; i++) {
+            rectangle.translate(0, grid.getCellSize());
+            row++;
+        }
+    }
+
+    public void setColor(Color color) {
+        rectangle.setColor(color);
+        rectangle.fill();
+    }
+
+    public boolean samePosition(Position other) {
+        return this.col == other.col && this.row == other.row;
     }
 
     public int getCol() {

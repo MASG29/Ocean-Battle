@@ -2,5 +2,7 @@ package Ship;
 
 public interface Repairable {
 
-    void repairable();
+    void repair(Ship ally);
+
+    boolean canRepair();
 }

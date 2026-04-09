@@ -2,5 +2,7 @@ package Ship;
 
 public interface Atacks {
 
-    void atack();
+    void attack(Ship target);
+
+    boolean canAttack();
 }

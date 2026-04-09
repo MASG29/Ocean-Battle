@@ -4,14 +4,19 @@ import Grid.Grid;
 
 public class ShipFactory {
 
-
-    public static Ship getNewFriendlyShip(Grid grid){
-        Friendly f1 = new Friendly(grid);
-        return f1;
+    public static Ship getNewFriendlyShip(Grid grid) {
+        return new Friendly(grid);
     }
 
-    public static Ship getNewEnemyShip(Grid grid){
-        Enemy e1 =  new Enemy(grid);
-        return e1;
+    public static Ship getNewFriendlyMechanic(Grid grid) {
+        return new Friendly(grid, ShipType.MECHANIC);
+    }
+
+    public static Ship getNewEnemyShip(Grid grid) {
+        return new Enemy(grid);
+    }
+
+    public static Ship getNewEnemyMechanic(Grid grid) {
+        return new Enemy(grid, ShipType.MECHANIC);
     }
 }

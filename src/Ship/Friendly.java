@@ -1,22 +1,20 @@
 package Ship;
 
 import Grid.Grid;
-import Grid.Position;
 import com.codeforall.simplegraphics.graphics.Color;
 
-public class Friendly extends Ship{
+public class Friendly extends Ship {
 
     public Friendly(Grid grid) {
         super(grid, Color.MAGENTA);
     }
 
-    @Override
-    public void atack() {
-
+    public Friendly(Grid grid, ShipType shipType) {
+        super(grid, Color.MAGENTA, shipType);
     }
 
     @Override
-    public void repairable() {
-
+    public boolean isFriendly() {
+        return true;
     }
 }

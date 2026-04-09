@@ -1,62 +1,112 @@
 import Grid.Grid;
 import Ship.Ship;
 import Ship.ShipFactory;
-import org.w3c.dom.ls.LSOutput;
 
-public class Battle  {
+public class Battle {
 
     private Grid grid;
-
-    private int totalPlayers = 20;
-
-    public Ship[] ships;
-
+    private int playersPerTeam = 10;
+    private Ship[] friendlyShips;
+    private Ship[] enemyShips;
     private int delay;
 
-    public Battle(int cols, int rows, int delay){
+    public Battle(int cols, int rows, int delay) {
         this.grid = new Grid(cols, rows);
         this.delay = delay;
     }
 
-    public void init(){
-
+    public void init() {
         grid.init();
 
-        this.ships = new Ship[totalPlayers];
-        for (int i = 0; i < totalPlayers / 2; i++) {
-            ships[i] = ShipFactory.getNewFriendlyShip(grid);
+        friendlyShips = new Ship[playersPerTeam];
+        enemyShips = new Ship[playersPerTeam];
+
+        // First friendly ship is guaranteed to be a mechanic
+        friendlyShips[0] = ShipFactory.getNewFriendlyMechanic(grid);
+        for (int i = 1; i < playersPerTeam; i++) {
+            friendlyShips[i] = ShipFactory.getNewFriendlyShip(grid);
         }
 
-        for (int j = totalPlayers / 2; j < totalPlayers; j++){
-            ships[j] = ShipFactory.getNewEnemyShip(grid);
+        for (int j = 0; j < playersPerTeam; j++) {
+            enemyShips[j] = ShipFactory.getNewEnemyShip(grid);
         }
-
     }
 
     public void start() throws InterruptedException {
-
-
-        while (true){
-
+        while (!isGameOver()) {
             Thread.sleep(delay);
             moveAllShips();
+            checkCombat();
+            checkRepairs();
         }
-
+        showWinner();
     }
 
-    public void moveAllShips(){
-
-
-        for (Ship ship : ships){
+    private void moveAllShips() {
+        for (Ship ship : friendlyShips) {
+            ship.move();
+        }
+        for (Ship ship : enemyShips) {
             ship.move();
         }
     }
 
+    private void checkCombat() {
+        for (Ship friendly : friendlyShips) {
+            if (friendly.isSunk()) {
+                continue;
+            }
+            for (Ship enemy : enemyShips) {
+                if (enemy.isSunk()) {
+                    continue;
+                }
+                if (friendly.getPosition().samePosition(enemy.getPosition())) {
+                    friendly.attack(enemy);
+                    enemy.attack(friendly);
+                }
+            }
+        }
+    }
 
+    private void checkRepairs() {
+        repairTeam(friendlyShips);
+        repairTeam(enemyShips);
+    }
 
+    private void repairTeam(Ship[] team) {
+        for (Ship repairer : team) {
+            if (repairer.isSunk() || !repairer.canRepair()) {
+                continue;
+            }
+            for (Ship ally : team) {
+                if (ally == repairer || ally.isSunk()) {
+                    continue;
+                }
+                if (repairer.getPosition().samePosition(ally.getPosition())) {
+                    repairer.repair(ally);
+                }
+            }
+        }
+    }
 
+    private boolean isGameOver() {
+        return allSunk(friendlyShips) || allSunk(enemyShips);
+    }
 
+    private boolean allSunk(Ship[] ships) {
+        for (Ship ship : ships) {
+            if (!ship.isSunk()) {
+                return false;
+            }
+        }
+        return true;
+    }
 
-
-
+    private void showWinner() {
+        if (allSunk(enemyShips)) {
+            System.out.println("Os Aliados venceram!");
+        } else {
+            System.out.println("Os Inimigos venceram!");
+        }
+    }
 }
